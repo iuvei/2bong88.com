@@ -1,0 +1,936 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0041)http://ibetpm.com/index.php?r=site/Result -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Result</title>
+<link href="table_w.css" rel="stylesheet" type="text/css">
+<link href="button.css" rel="stylesheet" type="text/css">
+<link href="oddsFamily.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" media="all" href="calendar-blue.css" title="win2k-cold-1">
+<script language="JavaScript" type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="calendar.js"></script>
+<script type="text/javascript" src="calendar-en.js"></script>
+<script type="text/javascript" src="calendar-setup.js"></script>
+<script type="text/javascript" src="DivLauncher.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<script language="JavaScript" type="text/javascript" src="isPad.js"></script>
+<script type="text/javascript">
+function SelectChange(mode, selsport, selleague) {
+	document.forms.form1.mode.value = mode;
+	var selob = document.getElementById("selDate");
+    document.forms.form1.selectDate.value = selob.innerHTML;
+	if (mode == 'sport') {
+        document.forms.form1.sportType.value = selsport;
+    }
+    else {
+        document.forms.form1.sportType.value = selsport;
+        document.forms.form1.league.value = selleague;
+    }
+    document.getElementById('ResultItem').style.display = "none";
+    document.getElementById("WaitLoading").style.display = "block";
+	document.forms.form1.submit();
+}
+
+function dateSubmit(datediff) {
+	var dateValue = 86400000 * datediff;
+	var today = new Date();
+    
+	var displayDateValue = today.getTime() + dateValue;
+	var newDate = new Date();
+	newDate.setTime(displayDateValue);
+
+	var displayfield = newDate.getMonth() + 1 + "/" + padLeft(newDate.getDate(), 2) + "/" + newDate.getFullYear();
+	document.forms.form1.selectDate.value = displayfield;
+	document.getElementById('ResultItem').style.display = "none";
+	document.getElementById("WaitLoading").style.display = "block";
+	document.forms.form1.submit();
+}
+
+function padLeft(str, length) {
+    if (str.toString().length >= length)
+        return str;
+    else
+        return padLeft("0" + str, length);
+} 
+
+function changeBGClass(ObjName, clsName) {
+	for (var i = 0; i < 10; i++) {
+        var trName = 'tr' + i;
+        var trName = document.getElementById(ObjName + "_" + i);
+	    if(trName != null) {
+	        trName.className = clsName;
+	    }
+    }
+}
+
+function dateChanged(calendar) {
+	if (calendar.dateClicked) {
+		var y = calendar.date.getFullYear();
+		var m = calendar.date.getMonth(); // integer, 0..11
+		var d = padLeft(calendar.date.getDate(), 2); // integer, 1..31
+		var selob = document.getElementById("selDate");
+		selob.innerHTML = (m+1) + "/" + d + "/" + y ;
+		document.forms.form1.selectDate.value = (m + 1) + "/" + d + "/" + y;
+		document.getElementById('ResultItem').style.display = "none";
+		document.getElementById("WaitLoading").style.display = "block";
+		document.forms.form1.submit();
+	}
+}
+
+var MoreLauncher;
+var iX; 
+var iY;
+	
+function popSCRInfo(EventDate,LeagueId,RaceNumber) {
+	var oDiv;
+	var oDragger;
+	var oCloser;
+	
+	if (MoreLauncher != null){
+		MoreLauncher.close();
+	}
+
+	document.getElementById("oMoreContainer").innerHTML = "";
+	
+	document.SCRInfoForm.EventDate.value = EventDate;
+	document.SCRInfoForm.LeagueId.value = LeagueId;
+	document.SCRInfoForm.RaceNumber.value = RaceNumber;
+	document.SCRInfoForm.submit();
+		
+	oDiv = document.getElementById("MoreDiv");
+	oDragger = document.getElementById("MoreTitle");
+	oCloser = document.getElementById("MoreCloser");
+	var Sender = document.getElementById("SCRPos_" + RaceNumber);
+	MoreLauncher = new DivLauncher(oDiv, oDragger, oCloser);
+	var aObj = Sender;
+	iX = 0;
+	iY = 0;
+	while (aObj.offsetParent != null) {
+		iX += aObj.offsetLeft;
+		iY += aObj.offsetTop;
+		aObj = aObj.offsetParent;
+	}
+	iX -= document.documentElement.scrollLeft;
+	iY -= document.documentElement.scrollTop;
+	iX += Sender.clientWidth - 310;
+	iY += Sender.clientHeight + 18;
+	MoreLauncher.open(iX, iY);
+}
+
+function popBingoSeq(MatchId, SelFrom,MatchStatus) {
+	var oDiv;
+	var oDragger;
+	var oCloser;
+	
+	if (MoreLauncher != null){
+		MoreLauncher.close();
+	}
+
+	document.getElementById("oMoreContainer").innerHTML = "";
+	
+	document.BingoSeqForm.MatchId.value = MatchId;
+	document.BingoSeqForm.SelFrom.value = SelFrom;	
+	document.BingoSeqForm.MatchStatus.value = MatchStatus;
+	document.BingoSeqForm.submit();
+		
+	oDiv = document.getElementById("MoreDiv");
+	oDragger = document.getElementById("MoreTitle");
+	oCloser = document.getElementById("MoreCloser");
+	var Sender = document.getElementById("BingoPos_" + MatchId);
+	MoreLauncher = new DivLauncher(oDiv, oDragger, oCloser);
+	var evt=getEvent();
+	var iX =evt.clientX-520;
+	var iY =evt.clientY+15;
+	MoreLauncher.open(iX, iY);
+}
+
+function popLiveCasino(MatchId, MatchName, ScoreData, ResultData) {
+	var oDiv;
+	var oDragger;
+	var oCloser;
+	
+	if (MoreLauncher != null){
+		MoreLauncher.close();
+	}
+
+	document.getElementById("oMoreContainer").innerHTML = "";
+	
+	document.LiveCasinoForm.MatchId.value = MatchId;
+	document.LiveCasinoForm.MatchName.value = MatchName;
+	document.LiveCasinoForm.ScoreData.value = ScoreData;
+	document.LiveCasinoForm.ResultData.value = ResultData;
+	document.LiveCasinoForm.submit();
+		
+	oDiv = document.getElementById("MoreDiv");
+	oDragger = document.getElementById("MoreTitle");
+	oCloser = document.getElementById("MoreCloser");
+	var Sender = document.getElementById("LiveCasinoPos_" + MatchId);
+	MoreLauncher = new DivLauncher(oDiv, oDragger, oCloser);
+	var evt=getEvent();
+	var iX =evt.clientX-520;
+	var iY =evt.clientY+15;
+	MoreLauncher.open(iX, iY);
+}
+function openKeno() {
+    var selob = document.getElementById("selDate").innerHTML.split("/");
+    var yyyy = selob[2];
+    var mm = padLeft(selob[0], 2);
+    var dd = padLeft(selob[1], 2);
+    var url = "ResultKeno.aspx?date=" + yyyy.toString() + mm.toString() + dd.toString();
+    location.href = url;
+}
+
+function View_RD(obj,gameID) {
+    if (obj.className.indexOf("off") != -1) {
+        $("#" + gameID).attr('class', 'displayOff');
+        obj.className = "iconOdds info";
+    }
+    else {
+        $("#" + gameID).attr('class', 'displayOn');
+        obj.className = "iconOdds info off";
+    }
+}
+
+</script>
+</head>
+<body id="Result" style="padding-bottom:5px" onload="parent.document.title = &#39;Result&#39;;">
+<div class="">
+  <form action="index.html" method="post" name="form1" target="ResultMain">
+    <input type="hidden" id="mode" name="mode" value="normal">
+    <input type="hidden" id="selectDate" name="selectDate">
+    <input type="hidden" id="sportType" name="sportType">
+    <input type="hidden" id="league" name="league">
+   <div class="titleBar">
+      <div class="title">Result</div>
+      <div class="right" style="display:"><a onclick="openKeno();" class="button mark" title="Keno"><span>Keno</span></a></div>
+      <div class="right"><a href="http://ibetpm.com/ResultOutright.aspx" class="button mark" title="Outright"><span>Outright</span></a></div>
+    </div>
+    <div class="board">
+      <ul class="panelInfo">
+        <li><span class="title">Date</span>
+        <div id="f_trigger_b" class="button select"><span id="selDate">04/30/2015</span>
+          <script type="text/javascript">
+			  Calendar.setup({
+				  inputField     :    "selDate",      // id of the input field
+				  ifFormat       :    "mm/dd/y",       // format of the input field
+				  button         :    "f_trigger_b",   // trigger for the calendar (button ID)
+				  //flat : "calendar-container", // ID of the parent element
+				  flatCallback : dateChanged,
+				  singleClick    :    true           // double-click mode
+			  });
+		  </script>
+        </div>
+        <a onclick="dateSubmit(0)" class="button"><span>Today</span></a>
+        <a onclick="dateSubmit(-1)" class="button"><span>Yesterday</span></a>
+
+        </li>
+      </ul>
+      <ul class="panelInfo">
+        <li><span class="title">Sport</span>
+            <div id="SelectSport_Div" tabindex="6" hidefocus="" onkeypress="onKeyPressSelecter(&#39;SelectSport&#39;,event);return false;" onclick="onClickSelecter(&#39;SelectSport&#39;);" class="button select">
+<input type="hidden" name="SelectSport" id="SelectSport" value="1">
+<span id="SelectSport_Txt" title="Soccer">Soccer</span>
+<ul id="SelectSport_menu" class="submenu">
+<li title="Soccer" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;1&#39;,false);SelectChange(&#39;sport&#39;, &#39;1&#39;, &#39;&#39;);">Soccer</li>
+<li title="Number Game" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;161&#39;,false);SelectChange(&#39;sport&#39;, &#39;161&#39;, &#39;&#39;);">Number Game</li>
+<li title="Virtual Soccer" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;180&#39;,false);SelectChange(&#39;sport&#39;, &#39;180&#39;, &#39;&#39;);">Virtual Soccer</li>
+<li title="Virtual Horse Racing" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;181&#39;,false);SelectChange(&#39;sport&#39;, &#39;181&#39;, &#39;&#39;);">Virtual Horse Racing</li>
+<li title="Virtual Greyhounds" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;182&#39;,false);SelectChange(&#39;sport&#39;, &#39;182&#39;, &#39;&#39;);">Virtual Greyhounds</li>
+<li title="Virtual Speedway" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;183&#39;,false);SelectChange(&#39;sport&#39;, &#39;183&#39;, &#39;&#39;);">Virtual Speedway</li>
+<li title="Virtual Motorsports" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;184&#39;,false);SelectChange(&#39;sport&#39;, &#39;184&#39;, &#39;&#39;);">Virtual Motorsports</li>
+<li title="Virtual Cycling" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;185&#39;,false);SelectChange(&#39;sport&#39;, &#39;185&#39;, &#39;&#39;);">Virtual Cycling</li>
+<li title="Virtual Tennis" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;186&#39;,false);SelectChange(&#39;sport&#39;, &#39;186&#39;, &#39;&#39;);">Virtual Tennis</li>
+<li title="Basketball" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;2&#39;,false);SelectChange(&#39;sport&#39;, &#39;2&#39;, &#39;&#39;);">Basketball</li>
+<li title="Baseball" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;8&#39;,false);SelectChange(&#39;sport&#39;, &#39;8&#39;, &#39;&#39;);">Baseball</li>
+<li title="Tennis" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;5&#39;,false);SelectChange(&#39;sport&#39;, &#39;5&#39;, &#39;&#39;);">Tennis</li>
+<li title="Badminton" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;9&#39;,false);SelectChange(&#39;sport&#39;, &#39;9&#39;, &#39;&#39;);">Badminton</li>
+<li title="Snooker/Pool" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;7&#39;,false);SelectChange(&#39;sport&#39;, &#39;7&#39;, &#39;&#39;);">Snooker/Pool</li>
+<li title="Table Tennis" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;18&#39;,false);SelectChange(&#39;sport&#39;, &#39;18&#39;, &#39;&#39;);">Table Tennis</li>
+<li title="E Sports" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectSport&#39;,this,&#39;43&#39;,false);SelectChange(&#39;sport&#39;, &#39;43&#39;, &#39;&#39;);">E Sports</li>
+</ul>
+</div>
+
+        </li>
+        <li><span class="title ">League</span>
+            <div id="SelectLeague_Div" tabindex="6" hidefocus="" onkeypress="onKeyPressSelecter(&#39;SelectLeague&#39;,event);return false;" onclick="onClickSelecter(&#39;SelectLeague&#39;);" class="button select">
+<input type="hidden" name="SelectLeague" id="SelectLeague" value="">
+<span id="SelectLeague_Txt" title="All League">All League</span>
+<ul id="SelectLeague_menu" class="submenu">
+<li title="All League" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;&#39;);">All League</li>
+<li title="*ITALY SERIE A - SPECIALS" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;6394&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;6394&#39;);">*ITALY SERIE A - SPECIALS</li>
+<li title="CZECH REPUBLIC U19 LEAGUE" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;8480&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;8480&#39;);">CZECH REPUBLIC U19 LEAGUE</li>
+<li title="CZECH REPUBLIC U21 LEAGUE" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;641&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;641&#39;);">CZECH REPUBLIC U21 LEAGUE</li>
+<li title="FOUR NATIONS TOURNAMENT U16 (IN BELARUS)" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;29506&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;29506&#39;);">FOUR NATIONS TOURNAMENT U16 (IN BELARUS)</li>
+<li title="FOUR NATIONS TOURNAMENT U16 (IN ISRAEL)" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;46453&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;46453&#39;);">FOUR NATIONS TOURNAMENT U16 (IN ISRAEL)</li>
+<li title="INDIAN I-LEAGUE U19 (PLAY OFF)" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;46293&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;46293&#39;);">INDIAN I-LEAGUE U19 (PLAY OFF)</li>
+<li title="INTERNATIONAL FRIENDLY U18" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;728&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;728&#39;);">INTERNATIONAL FRIENDLY U18</li>
+<li title="INTERNATIONAL FRIENDLY U19" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;364&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;364&#39;);">INTERNATIONAL FRIENDLY U19</li>
+<li title="INTERNATIONAL FRIENDLY WOMEN U19" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;973&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;973&#39;);">INTERNATIONAL FRIENDLY WOMEN U19</li>
+<li title="INTERNATIONAL FRIENDLY" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;10&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;10&#39;);">INTERNATIONAL FRIENDLY</li>
+<li title="JORDAN PRO LEAGUE" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;789&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;789&#39;);">JORDAN PRO LEAGUE</li>
+<li title="KOREA WOMEN K-LEAGUE" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;8740&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;8740&#39;);">KOREA WOMEN K-LEAGUE</li>
+<li title="POLAND CENTRAL JUNIOR LEAGUE" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;43855&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;43855&#39;);">POLAND CENTRAL JUNIOR LEAGUE</li>
+<li title="ROMANIA LIGA 1 BERGENBIER - SPECIALS" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;30358&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;30358&#39;);">ROMANIA LIGA 1 BERGENBIER - SPECIALS</li>
+<li title="ROMANIA LIGA 1 BERGENBIER - SPECIFIC 15 MINS" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;37775&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;37775&#39;);">ROMANIA LIGA 1 BERGENBIER - SPECIFIC 15 MINS</li>
+<li title="ROMANIA LIGA 1 BERGENBIER" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;30247&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;30247&#39;);">ROMANIA LIGA 1 BERGENBIER</li>
+<li title="RUSSIA PREMIER LEAGUE - SPECIALS" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;6420&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;6420&#39;);">RUSSIA PREMIER LEAGUE - SPECIALS</li>
+<li title="RUSSIA PREMIER LEAGUE - SPECIFIC 15 MINS" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;37726&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;37726&#39;);">RUSSIA PREMIER LEAGUE - SPECIFIC 15 MINS</li>
+<li title="RUSSIA PREMIER LEAGUE" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;127&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;127&#39;);">RUSSIA PREMIER LEAGUE</li>
+<li title="SAUDI PRINCE FAISAL BIN FAHAD U21 CUP" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;26322&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;26322&#39;);">SAUDI PRINCE FAISAL BIN FAHAD U21 CUP</li>
+<li title="SCOTLAND DEVELOPMENT LEAGUE" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;42436&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;42436&#39;);">SCOTLAND DEVELOPMENT LEAGUE</li>
+<li title="SWEDEN ALLSVENSKAN - SPECIALS" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;6404&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;6404&#39;);">SWEDEN ALLSVENSKAN - SPECIALS</li>
+<li title="SWEDEN ALLSVENSKAN - SPECIFIC 15 MINS" onmouseover="onOver(this)" onmouseout="onOut(this)" onclick="setSelecter(&#39;SelectLeague&#39;,this,&#39;37730&#39;,false);SelectChange(&#39;league&#39;, &#39;1&#39;, &#39;37730&#39;);">SWEDEN ALLSVENSKAN - SPECIFIC 15 MINS</li>
+</ul>
+</div>
+
+        </li>
+      </ul>
+    </div>
+    <div id="WaitLoading" align="center" style="display: none"><img src="loading.gif" vspace="2"></div>
+    <div id="ResultItem" class="tabbox" style="display: block"> 
+      
+      <div class="tabbox_F"> 
+<table class="oddsTable info" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+	<tbody><tr>
+		<th width="110" align="left" nowrap="">Kickoff Time</th>
+		<th width="400" align="left" class="even">Match</th>
+		<th width="95" style="white-space:nowrap;">First Half Score</th>
+		<th width="80" style="white-space:nowrap;" class="even">Final Score</th>
+		<th width="75" align="left">Status</th>
+	</tr>
+	
+        
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">*ITALY SERIE A - SPECIALS</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/29/2015 02:45 PM</td>
+		<td>Sampdoria No.of Corners -vs- <b>Verona No.of Corners</b></td>
+		<td align="center"><strong>2-3</strong></td>
+		<td align="center"><strong>6-7</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">CZECH REPUBLIC U19 LEAGUE</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 08:15 AM</td>
+		<td>Slovan Liberec U19 -vs- <b>MFK Karvina U19</b></td>
+		<td align="center"><strong>1-1</strong></td>
+		<td align="center"><strong>1-3</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">CZECH REPUBLIC U21 LEAGUE</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Slovacko U21 -vs- Sparta Praha U21</td>
+		<td align="center"><strong>1-1</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">FOUR NATIONS TOURNAMENT U16 (IN BELARUS)</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 03:00 AM</td>
+		<td><b>Lithuania U16</b> -vs- Estonia U16</td>
+		<td align="center"><strong>1-0</strong></td>
+		<td align="center"><strong>2-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 05:30 AM</td>
+		<td>Belarus U16 -vs- Sweden U16</td>
+		<td align="center"><strong>0-1</strong></td>
+		<td align="center"><strong>1-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">FOUR NATIONS TOURNAMENT U16 (IN ISRAEL)</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 03:00 AM</td>
+		<td><b>Israel U16</b> -vs- Poland U16</td>
+		<td align="center"><strong>1-1</strong></td>
+		<td align="center"><strong>2-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 03:00 AM</td>
+		<td>Turkey U16 -vs- <b>Ukraine U16</b></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-2</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">INDIAN I-LEAGUE U19 (PLAY OFF)</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 07:45 AM</td>
+		<td>Hindustan FC U19 -vs- <b>DSK Shivajians U19</b></td>
+		<td align="center"><strong>0-2</strong></td>
+		<td align="center"><strong>0-3</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:39 AM</td>
+		<td>Mohun Bagan AC U19 -vs- AIFF Elite Academy U19</td>
+		<td align="center"><strong>0-1</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">INTERNATIONAL FRIENDLY</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Bosnia-Herzegovina U19 -vs- USA U18</td>
+		<td align="center"><strong>0-1</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">INTERNATIONAL FRIENDLY U18</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 04:30 AM</td>
+		<td><b>Greece U18</b> -vs- Finland U18</td>
+		<td align="center"><strong>1-0</strong></td>
+		<td align="center"><strong>4-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">INTERNATIONAL FRIENDLY U19</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 05:00 AM</td>
+		<td><b>Ukraine U19</b> -vs- Georgia U19</td>
+		<td align="center"><strong>2-0</strong></td>
+		<td align="center"><strong>3-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">INTERNATIONAL FRIENDLY WOMEN U19</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 09:06 AM</td>
+		<td>Cyprus U19 (W) -vs- <b>Hungary U19 (W)</b></td>
+		<td align="center"><strong>0-1</strong></td>
+		<td align="center"><strong>0-4</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">JORDAN PRO LEAGUE</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Al Baqaa (JOR) -vs- Al Ahly (JOR)</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Mansheyat Bani Hasan -vs- Al Hussein (JOR)</td>
+		<td align="center"><strong>0-1</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">KOREA WOMEN K-LEAGUE</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 03:00 AM</td>
+		<td>Seoul City Amazones (W) -vs- Hwacheon KSPO (W)</td>
+		<td align="center"><strong>2-1</strong></td>
+		<td align="center"><strong>3-3</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 06:00 AM</td>
+		<td><b>Hyundai Steel Redangels (W)</b> -vs- Icheon Daekyo (W)</td>
+		<td align="center"><strong>1-1</strong></td>
+		<td align="center"><strong>2-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 06:00 AM</td>
+		<td>Busan Sangmu (W) -vs- <b>Daejeon Sportstoto (W)</b></td>
+		<td align="center"><strong>0-1</strong></td>
+		<td align="center"><strong>1-2</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">POLAND CENTRAL JUNIOR LEAGUE</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 04:00 AM</td>
+		<td>Ruch Chorzow U19 -vs- Lechia Gdansk U19</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 07:05 AM</td>
+		<td><b>Lech Poznan U19</b> -vs- Pogon Szczecin U19</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>2-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">ROMANIA LIGA 1 BERGENBIER</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Gaz Metan Medias -vs- Otelul Galati</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">ROMANIA LIGA 1 BERGENBIER - SPECIALS</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Gaz Metan Medias 2nd Corner -vs- Otelul Galati 2nd Corner</td>
+		<td align="center"><strong>Refund</strong></td>
+		<td align="center"><strong>Refund</strong></td>
+		<td><strong>Refund</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Gaz Metan Medias 5th Corner</b> -vs- Otelul Galati 5th Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Gaz Metan Medias 6th Corner</b> -vs- Otelul Galati 6th Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Gaz Metan Medias 8th Corner</b> -vs- Otelul Galati 8th Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Otelul Galati - Over -vs- Otelul Galati - Under</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Gaz Metan Medias - Over -vs- Gaz Metan Medias - Under</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">ROMANIA LIGA 1 BERGENBIER - SPECIFIC 15 MINS</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Gaz Metan Medias 60:01-75:00 -vs- Otelul Galati 60:01-75:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Gaz Metan Medias 45:01-60:00 -vs- Otelul Galati 45:01-60:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Gaz Metan Medias 15:01-30:00 -vs- Otelul Galati 15:01-30:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Gaz Metan Medias 00:00-15:00 -vs- Otelul Galati 00:00-15:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">RUSSIA PREMIER LEAGUE</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Amkar Perm<span class="icon_1F"></span><span class="icon_1L"></span> -vs- Dinamo Moscow</td>
+		<td align="center"><strong>2-0</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">RUSSIA PREMIER LEAGUE - SPECIALS</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Dinamo Moscow - Over -vs- Dinamo Moscow - Under </td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Amkar Perm 1st Corner</b> -vs- Dinamo Moscow 1st Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Amkar Perm 2nd Corner</b> -vs- Dinamo Moscow 2nd Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Amkar Perm 3rd Corner</b> -vs- Dinamo Moscow 3rd Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Amkar Perm 4th Corner</b> -vs- Dinamo Moscow 4th Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Amkar Perm 5th Corner -vs- <b>Dinamo Moscow 5th Corner</b></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Amkar Perm 6th Corner -vs- <b>Dinamo Moscow 6th Corner</b></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Amkar Perm 7th Corner -vs- <b>Dinamo Moscow 7th Corner</b></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Amkar Perm 8th Corner</b> -vs- Dinamo Moscow 8th Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Amkar Perm 9th Corner</b> -vs- Dinamo Moscow 9th Corner</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Amkar Perm - Over -vs- Amkar Perm - Under</td>
+		<td align="center"><strong>2-0</strong></td>
+		<td align="center"><strong>-</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">RUSSIA PREMIER LEAGUE - SPECIFIC 15 MINS</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Amkar Perm 60:01-75:00 -vs- Dinamo Moscow 60:01-75:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Amkar Perm 45:01-60:00 -vs- Dinamo Moscow 45:01-60:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td><b>Amkar Perm 15:01-30:00</b> -vs- Dinamo Moscow 15:01-30:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 10:00 AM</td>
+		<td>Amkar Perm 00:00-15:00 -vs- Dinamo Moscow 00:00-15:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">SAUDI PRINCE FAISAL BIN FAHAD U21 CUP</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 08:30 AM</td>
+		<td>Al Fateh U21 -vs- Al Hilal (KSA) U21</td>
+		<td align="center"><strong>0-1</strong></td>
+		<td align="center"><strong>1-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 08:48 AM</td>
+		<td><b>Al Shabab (KSA) U21</b> -vs- Al Khaleej U21</td>
+		<td align="center"><strong>1-0</strong></td>
+		<td align="center"><strong>4-0</strong></td>
+		<td><strong>Running</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 08:50 AM</td>
+		<td><b>Al Faisaly (KSA) U21</b> -vs- Hajer Club U21</td>
+		<td align="center"><strong>2-1</strong></td>
+		<td align="center"><strong>5-2</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 08:50 AM</td>
+		<td>Al Shoalah U21 -vs- Najran SC U21</td>
+		<td align="center"><strong>1-0</strong></td>
+		<td align="center"><strong>2-2</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 09:05 AM</td>
+		<td>Al Ittihad (KSA) U21 -vs- Al Ahli (KSA) U21</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 09:20 AM</td>
+		<td>Al Orubah U21 -vs- <b>Al Raed U21</b></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>1-2</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">SCOTLAND DEVELOPMENT LEAGUE</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 09:00 AM</td>
+		<td><b>Inverness CT U20</b> -vs- Dunfermline Athletic U20</td>
+		<td align="center"><strong>2-1</strong></td>
+		<td align="center"><strong>3-2</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 09:00 AM</td>
+		<td>St. Mirren U20 -vs- Ross County U20</td>
+		<td align="center"><strong>2-0</strong></td>
+		<td align="center"><strong>2-2</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">SWEDEN ALLSVENSKAN - SPECIALS</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 11:00 AM</td>
+		<td>BK Hacken 1st Corner -vs- <b>IFK Norrkoping 1st Corner</b></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 11:00 AM</td>
+		<td>BK Hacken 2nd Corner -vs- <b>IFK Norrkoping 2nd Corner</b></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-1</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr>
+    	<td class="tabtitle"></td>
+		<td colspan="6" class="tabtitle">SWEDEN ALLSVENSKAN - SPECIFIC 15 MINS</td>
+	</tr>
+	
+	<tr class="bgcpe" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpe&#39;">
+		<td nowrap="nowrap">4/30/2015 11:00 AM</td>
+		<td>BK Hacken 00:00-15:00 -vs- IFK Norrkoping 00:00-15:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+	<tr class="bgcpelight" onmouseover="this.className=&#39;trbgov&#39;" onmouseout="this.className=&#39;bgcpelight&#39;">
+		<td nowrap="nowrap">4/30/2015 11:00 AM</td>
+		<td>BK Hacken 15:01-30:00 -vs- IFK Norrkoping 15:01-30:00</td>
+		<td align="center"><strong>0-0</strong></td>
+		<td align="center"><strong>0-0</strong></td>
+		<td><strong>Completed</strong></td>
+	</tr>
+	
+</tbody></table>
+ </div>
+       
+    </div>
+    <div class="note">
+	    <div class="noteBorder">
+            <div class="title"><span>Note</span></div>
+            <div class="content">Please note that the displayed time is based on GMT -4 hours.</div> 
+        </div>
+    </div>
+  </form>
+</div>
+
+<div id="MoreDiv" style="display: none">
+	<div class="popupW">
+        <div id="MoreTitle" class="popupWTitle">
+        	<span>
+                <div class="popWIcon"></div>
+                <div class="popWTitleContain">SCR Info</div>
+                <div id="MoreCloser" class="popWClose" title="Close"></div>
+            </span>
+        </div>
+        <div id="oMoreContainer" class="popWContain"></div>
+    </div>
+</div>
+
+<iframe id="FrameMore" name="FrameMore" style="display: none" onload="document.getElementById(&#39;oMoreContainer&#39;).innerHTML=this.contentWindow.document.body.innerHTML;"></iframe>
+<form name="SCRInfoForm" action="http://ibetpm.com/SCRInfoPopup.aspx" target="FrameMore" style="display: none">
+  <input type="hidden" name="EventDate">
+  <input type="hidden" name="LeagueId">
+  <input type="hidden" name="RaceNumber">
+</form>
+<form name="BingoSeqForm" action="http://ibetpm.com/ResultPopBingo.aspx" target="FrameMore" style="display: none">
+  <input type="hidden" name="MatchId">
+  <input type="hidden" name="SelFrom">
+  <input type="hidden" name="MatchStatus">
+</form>
+<form name="LiveCasinoForm" action="http://ibetpm.com/ResultPopLiveCasino.aspx" target="FrameMore" style="display: none">
+  <input type="hidden" name="MatchId">
+  <input type="hidden" name="MatchName">
+  <input type="hidden" name="ScoreData">
+  <input type="hidden" name="ResultData">
+</form>
+
+
+</body></html>

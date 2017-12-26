@@ -1,0 +1,18 @@
+div#divFullUserName , div#divFullUserName{
+font-weight: bold;
+font-size: 11px;
+}
+.Tcolor01 {
+color: #355891;
+font-weight: bold;
+}
+#account_allhard a {
+color: #212121;
+font-size: 11px;
+}
+td{font-size: 11px}
+#account a{font-size: 11px}
+#account_hard table tr td{font-size: 11px;}
+span#AccCurrency_P {
+padding-right: 5px;
+}

@@ -1,0 +1,18 @@
+Dear Nguyen van,
+                                                                                                        
+Your test account details are as follow: (for 2 weeks period)
+
+The URL to enter the system is http://client.oddservice.com        
+
+User name:  hartjonh62@gmail.com
+
+Password: 8056dc2c
+
+To use the pre match odds service: http://client.oddservice.com/DevPortal/Constructor?func=GetSportEvents 
+you can filter data by sports, country, Bookmaker and bet type.
+Guid: 6f362949-9fd2-404f-89ed-2779248a85d7
+ 
+To use in play odds, first enter here: http://client.oddservice.com/Management/Pusher and then enter your IP address (for example: http://IP/PUSH or http://WEB/PUSH) 
+in play will be sent by push to this address. 
+Once done, you can open your push.
+Guid: 1faeccf1-e695-4e9d-8bc0-6d6ab6f06678

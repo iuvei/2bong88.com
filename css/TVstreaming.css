@@ -1,0 +1,460 @@
+@charset "utf-8";
+
+.streamingHeadArea{
+	width: 795px;
+	position: relative;
+}
+.streamingMenuArea{
+	position: absolute;
+	top:44px;
+	right:5px;
+}
+.TVLogo{
+	width: 26px;
+	height: 35px;
+	background: url(../images/TV/TVLogo.png) no-repeat 0 0;
+	display: inline-block;
+}
+.topMenuArea{
+	position: absolute;
+	right:10px;
+	top: 15px;
+}
+.streamingtopMenu li{
+	float: left;
+	padding-left: 7px;
+	color: #7d7d7d;
+}
+.streamingtopMenu li a{
+	color: #2E4A7A;
+	font-weight: bold;
+}
+.streamingtopMenu li a:hover{
+	color: #f99144;
+}
+.StreamingMenuArea{
+	position: absolute;
+	top: 44px;
+	right: 10px;
+}
+.blueArea{
+	background: #4f6ea0;
+	height: 4px;
+	width: 100%;
+}
+#SportsContainer{
+	margin: 8px 0 0 7px;
+	width:797px;
+}
+#containerleft{
+	padding: 0 0 7px 10px;
+	width: 252px;
+}
+.streamingLeftTitle {
+	background: url(../images/layout/btn_UI03.png) no-repeat 0 0;
+	margin: 0;
+	height: 24px;
+}
+.streamingLeftTitle > span {
+	height: 20px;
+	display: block;
+	background: url(../images/layout/btn_UI03.png) no-repeat right 0;
+	margin: 0 -4px 0 4px;
+	padding: 4px 3px 0 0;
+	text-shadow:-1px -1px 0px #3c4b62;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 12px;
+}
+.iconLeft{
+	background: url(../images/layout/icon_UI02.png) no-repeat 0px 0px;
+	width:15px;
+	height:15px;
+	margin-right:4px;
+	float:left;
+}
+.iconLeft.arrowDown{
+	background-position: -16px 0px;
+}
+.iconRightArea{
+	float:right;
+	margin-right: 4px;
+}
+.icon{
+	background: url(../images/layout/btn_UI01.png) no-repeat 0px -36px;
+	width: 16px;
+	height: 16px;
+	margin-left: 4px;
+	float: left;
+	cursor: pointer;
+}
+.icon:hover{
+	background-position: 0px -18px;
+}
+.icon span{
+	background: url(../images/layout/icon_UI01.png) no-repeat 0px 0px;
+	width: 16px;
+	height: 16px;
+}
+.icon span.refresh{
+	background-position: -4px -36px;
+}
+.icon span.refresh:hover{
+	background-position: -4px -18px;
+}
+.containerRight{
+	margin-left: 20px;
+	display: inline-block;
+}
+.containerRight .titleBar{
+	margin-top: 2px;
+	margin-bottom: 8px;
+	width: inherit;
+}
+.manbox {
+	/*width: 480px;*/
+	background-color: #e8ebf3;
+	margin-left: 3px;
+}
+.TVTilte {
+	background: url(../images/layout/oddsTable_th.png?v=20130913001) no-repeat right 0;
+	height: 14px;
+	margin-left: -3px;
+	border-radius: 2px 2px 0 0;
+	color: #ffffff;	
+	padding: 5px 7px;
+	text-shadow: -1px -1px 1px #445c82;
+	/*width: 470px;*/
+}
+.TVType{
+	font-weight: bold;
+	float: left;
+	padding-right: 10px;
+}
+.TVInfo{
+	padding-right: 10px;
+	float: left;
+}
+.TVTeam{
+	float: left;
+}
+.manbox .leftBoxbody {
+	margin-left: -3px;
+	width: inherit;
+	height: 425px;
+	border-bottom-width: 1px;
+	padding-bottom: 1px;
+	border-radius: 0 0 2px 2px;
+}
+.streamingAllBG{
+	background: #FFFFFF;
+	height: 381px;
+}
+.pad5 {margin: 10px;}
+.maxText { display: none; visibility: hidden;}
+.maxImage {display: none; visibility: hidden;}
+.TVIcon{
+	height: 19px;
+	background: url(../images/layout/StreamingIcon.png) no-repeat 0px 0px;
+	padding-left: 15px;
+	cursor: pointer;
+}
+.TVIcon.min {
+	background-position: 1px 3px;
+}
+.TVIcon.min:hover {
+	background-position: 1px -18px;
+}
+.TVIcon.max {
+	background-position: 1px -34px;
+}
+.TVIcon.max:hover {
+	background-position: 1px -56px;
+}
+.reflashIcon{
+	height: 19px;
+	width: 14px;
+	background: url(../images/layout/StreamingIcon.png) no-repeat -1px -77px;
+	cursor: pointer;
+}
+.reflashIcon:hover{
+	background-position: -1px -97px;
+}
+.tabbg{
+	background-image: url(../../public/images/TV/TV_bg.jpg?v=20121222001);
+	background-repeat: repeat-x;
+	margin-top: 0px;
+	width:800px;
+}
+/**left **/
+#containerleft .leftBoxbody{
+	/*margin-left:-4px;*/
+	width: 252px;
+	border-bottom-width: 1px;
+	padding-bottom: 1px;
+	border-radius: 0 0 2px 2px;
+}
+.leftbox {
+	background-color: #fafafa;
+}
+.title {
+	font-size: 15px;
+	color: #262626;
+	font-weight: bold;
+}
+#footer {
+	clear:both;
+	width: 100%;
+	color: #adadad;
+	background: #e4e7ee;
+	border-top: 1px solid #ffffff;
+	padding: 12px 0;
+}
+.footerContainer {
+	/*width: 795px;*/
+	text-align: center;
+}
+#footer a {
+	color: #adadad;
+}
+#footer a:hover {
+	color: #f99144;
+}
+.buttonOut {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #294983;
+	cursor: hand;
+	margin-right: 2px;
+	margin-left: 2px;
+	height: 18px;
+	font-weight: normal;
+	background-image: url(../../public/images/TV/btn_bu.gif?v=20121222001);
+	border: 1px solid #6b91ab;
+	background-color: #c5d4de;
+	line-height: 16px;
+}
+#newtopmenu.topmenu {
+	font-size: 11px;
+	width: 450px;
+	color: #2e4a7a;
+	position: relative;
+	font-weight: bold;
+	height: 40px;
+}
+#newtopmenu.topmenu a{color: #2e4a7a;text-decoration: none;}
+#newtopmenu.topmenu a:hover {color: #6699CC!important;text-decoration: none;}
+#newtopmenu.topmenu a:visited{color: #2e4a7a;text-decoration: none;}
+
+.sc td{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:11px;
+}
+.Channel1 {
+	width:23px;
+	font-weight: bold;
+	background-image: url(/template/public/TV/SCannel_iconB.gif?v=20121222001);
+	height: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.Channel1 a {
+	color: #000000;
+	text-decoration:none;
+	display: block;
+}
+.Channel1 a:hover {
+    color: #000000;
+    cursor:default;
+}
+
+.Channel2 {
+    color: #8d8d8d;
+	width:23px;
+	font-weight: bold;
+	background-image: url(/template/public/TV/SCannel_iconG.gif?v=20121222001);
+	height: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.Channel2 a {
+	color: #8d8d8d;text-decoration:none;display: block;
+}
+.Channel2 a:hover {
+	color: #000000;
+}
+.sctext{font-size:11px;color: #8d8d8d;}
+
+.TVmenu{
+	height: 49px;
+	width: 800px;
+	background-color: #d8e6f3;
+}
+
+.RacingFrame{
+	width: 100%;
+	background-color: #d8e6f3;
+	display: block;
+	height: 530px;
+	align: center;
+}
+.scheduleArea {	
+	background: #fafafa url(../images/TV/ScheduleBGBottom.png) no-repeat 0 bottom;
+	height: 455px;
+}
+#scheduleOption {
+	padding: 4px 0px 0px 5px;
+	background: #eaedf2;
+	height: 23px;
+}
+#scheduleOption .button.select.SEvent{
+	width: 102px;
+	text-align: left;
+}
+#scheduleOption .button.select.SDate{
+	width: 67px;
+	text-align: left;
+}
+#latestSchedule {
+	background: url(../images/TV/ScheduleBGUpper.png) no-repeat 0px 0px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 429px; 
+}
+.contlist{
+	padding: 12px 13px;
+	border-bottom: 1px solid #e7e7e7;
+	border-top: 1px solid #ffffff;
+	line-height: 16px;
+}
+.title-deepbk { 
+	color: #777777; 
+	font-weight: bold;
+}
+.contrd { 
+	color: #777777;
+}
+.cont-deepbk { 
+	color: #375383;
+}
+.cont-deepbk a, .containerQA .contrd a{ 
+	color: #375383;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.cont-deepbk a:hover, .containerQA .contrd a:hover{
+	text-decoration: none;
+}
+.G11{
+	color: #777777;
+	text-shadow: 1px 1px 0px #ffffff;
+	background: #e8e8e8;
+	padding: 0px 3px;
+	display: block;
+	margin-top: 5px;
+	border-radius: 2px;
+}
+.Streamingbg {
+	background: #e9ecf3 url(../images/TV/MsgIBCLogo.png) no-repeat 115px 105px; 
+	height:425px;
+	width:480px;
+	position: relative;
+}
+.Streamingbg.bong88 {
+	background: #e9ecf3 url(/template/bong88/public/images/layout/logo_bong88_TV.png) no-repeat 115px 105px;
+}
+
+.Streamingbg.ibet888 {
+	background: #e9ecf3 url(/template/ibet888/public/images/layout/logo_ibet888_TV.png) no-repeat 115px 105px;
+}
+
+.Streamingtext{
+	height: 94px;
+	width: 276px;
+	border-right: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+	border-radius: 2px;
+	-moz-box-shadow: -1px -1px 1px 0px #cbced6;
+	-webkit-box-shadow: -1px -1px 1px 0px #cbced6;
+	box-shadow: -1px -1px 1px 0px #cbced6;
+	position: absolute;
+	left: 38px;
+	bottom: 38px;
+	background: #e1e5ee url(../images/TV/MsgIcon.png) no-repeat 23px 23px;
+	padding: 19px 18px 0px 110px;
+	color: #39598e;
+	font-size: 14px;
+	text-shadow: 1px 1px 0px #ffffff;
+}
+.StreamingLoadingText{
+	height: 94px;
+	width: 420px;
+	position: absolute;
+	left: 29px;
+	top: 267px;
+	color: #CDD2E0;
+	font-size: 24px;
+	text-shadow: 1px 1px 0px #ffffff;
+	font-weight: lighter;
+	text-align: center;
+}
+.containerQA {
+	background: url(../images/TV/ScheduleBGUpper.png) no-repeat 0px 0px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 455px; 
+}
+.containerQABottom {
+	background: url(../images/TV/ScheduleBGBottom.png) no-repeat 0px bottom;
+}
+.containerQA .title-deepbk, .containerQA .contrd{
+	padding-bottom: 10px;
+}
+.containerQA .contrd a,.containerQA .contrd a:hover, .containerQA .contrd a:active{ 
+	word-wrap: break-word;
+}
+.containerQA .contrd ul{
+	list-style: inside disc;
+	margin: 5px;
+}
+.QAGoTop{
+	margin: 10px;
+	display: block;
+	height: 16px;
+	width: 30px;
+	float: right;
+}
+/* change to double streaming */
+body.double iframe[name="FrameValidation"] { width:1005px;}
+body.double .streamingHeadArea { width:100%;}
+body.double #SportsContainer{ width:1317px;}
+body.double.miniWin #SportsContainer{ width:1045px;}
+body.miniWin #SportsContainer{ width:520px;}
+
+/* logo streamingLogoArea */
+.streamingLogoArea { min-width:210px; height:70px;}
+.streamingLogoArea img[src*="sportsbook"] { width:210px; height:70px; /*margin: 7px 0 0 30px;*/ background: url(/template/sportsbook/public/images/layout/logo.png) no-repeat 30px 7px;}
+.streamingLogoArea img[src*="sportsbook"] + .TVLogo { margin: 0 0 2px -39px;}
+
+.streamingLogoArea img[src*="bong88"] { width:190px; height:55px; margin: 5px 0 0 10px; background: url(/template/bong88/public/images/layout/logo_bong88.png) 0 0;}
+.streamingLogoArea img[src*="bong88"] + .TVLogo { margin: 0 0 -5px -20px;}
+
+/**Language Fix**/
+body[lang="fr"] #scheduleOption .button.select { max-width:111px;}
+body[lang="fr"] #scheduleOption .button.select ul  { position:absolute;}
+body[lang="pt"] #scheduleOption .button.select { max-width:111px;}
+body[lang="pt"] #scheduleOption .button.select ul  { position:absolute;}
+body[lang="es"] #scheduleOption .button.select { max-width:111px;}
+body[lang="es"] #scheduleOption .button.select ul  { position:absolute;}
+
+/* IE8 only */
+@media \0screen {#minimgdiv { position:relative;} #mintxtdiv { max-width:175px; position: absolute; right:0;}}
+
+/* logo 節慶用 - Xmas  */
+/*
+.streamingLogoArea img[src*="sportsbook"]{ background-image: url(../images/layout/logo_Xmas.png); background-position: 0px 3px; }
+.streamingLogoArea img[src*="sportsbook"] + .TVLogo { margin:0 0 2px -30px;}
+
+.streamingLogoArea img[src*="bong88"] { background-image: url(/template/bong88/public/images/layout/logo_Xmas.png); background-position: 2px 5px; background-repeat: no-repeat; }
+.streamingLogoArea img[src*="bong88"] + .TVLogo { margin-left: -20px;}
+*/

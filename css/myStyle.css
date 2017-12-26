@@ -1,0 +1,6 @@
+.oddsTable, .scoremapInfo {
+
+border-collapse: collapse;
+
+}
+.oddsTable td{padding: 3px 5px;}
